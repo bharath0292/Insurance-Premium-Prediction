@@ -1,0 +1,71 @@
+stages:
+  - fetch_s3_bucket
+  - load_mongo_db
+  - data_validation
+  - model_training
+  - deploy
+
+fetch_s3_bucket:
+  stage: fetch_s3_bucket
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  script:
+    - cd data/
+    - aws s3 cp s3://${S3_BUCKET_NAME}/ . --recursive
+    - ls -ltr ./Heal* | tail -1
+    - pwd
+  artifacts: 
+      paths:
+          - data/
+
+load_mongo_db:
+    image: tejaswikt/python:v9
+    stage: load_mongo_db
+    script:
+      - python load_data.py `echo $MONGO_URL`
+    artifacts:
+      paths:
+        - data/
+
+
+data_validation:
+    image: tejaswikt/python:v9
+    stage: data_validation
+    script:
+      - python validate_train_file.py
+    artifacts:
+      paths:
+        - data/
+        - Training_Logs/
+        - Training_Raw_data_validation/
+        - Training_Raw_files_validated/
+        - Training_FileFromDB/
+        - Training_Batch_Files/
+        - TrainingArchiveBadData/
+        - Prediction_Batch_files/
+           
+            
+
+model_training:
+    image: tejaswikt/python:v9
+    stage: model_training
+    script:
+      - python train_data.py
+    artifacts:
+        paths:
+          - data/
+          - Training_Logs/
+          - Prediction_Batch_files/
+          - Training_Batch_files/
+          - Prediction_Logs/
+          - Prediction_Raw_Data_Validation/
+
+    
+    
+
+deploy:
+  stage: deploy
+  script:
+  - gem install dpl
+  - dpl --provider=heroku --app=${HEROKU_APP} --api-key=${HEROKU_API_KEY}
+
+

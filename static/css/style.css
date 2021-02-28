@@ -1,0 +1,27 @@
+.bag {
+    /*background-image: linear-gradient(to right, #2193b0 , #6dd5ed); */
+    /*background: url("../assets/pexels-pixabay-40568.jpg") ; */
+    background: url("../assets/pexels-pixabay-40568.jpg") ;
+    background-attachment: fixed;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  #hero{
+    height:25vh;
+  }
+.overlay{
+  position: absolute;
+  top:0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 50%;
+}
+ 
+
+iframe{
+  z-index:4;
+}

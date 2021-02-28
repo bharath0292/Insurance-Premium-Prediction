@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Premium Prediction</title>
+    <!--<link rel="stylesheet" href="vendor/css/bootstrap.min.css">
+<link rel="stylesheet" href="./css/style.css"> -->
+    <link href="{{ url_for('static', path='vendor/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body class="bag">
+    <div class="overlay"></div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="container">
+            <a class="navbar-brand" href="#"><span class="text-success">Heal</span>safe</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
+                aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor03">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">GitHub</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Admin</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+        </div>
+    </nav>
+    <section id="hero" class="mt-5">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-8">
+                    <h2 class="text-white display-4">Healthcare Premium Prediction</h2>
+                    <p class="text-white">Blessed to have a life, now insure it</p>
+                    <a href="" class="btn btn-primary">Secure Now</a>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <div class="card border-primary mb-3" style="max-width: auto">
+                        <div class="card-header">Calculate your Premium</div>
+                        <div class="card-body">
+                            <h4 class="card-title">Fill out the details</h4>
+
+                            <!-- Prediction form-->
+                            <form>
+                                <fieldset>
+
+                                    <!--Age-->
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="inputDefault">Age</label>
+                                        <input type="number" class="form-control" min="0" placeholder="" id="age">
+                                    </div>
+
+                                    <!--Sex-->
+                                    <div class="form-group">
+                                        <label for="exampleSelect1">Sex</label>
+                                        <select class="form-control" id="sex">
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                        </select>
+                                    </div>
+
+                                    <!--BMI-->
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="inputDefault">BMI</label>
+                                        <input type="number" class="form-control" min="0" placeholder="" id="bmi">
+                                    </div>
+
+
+                                    <!--Children-->
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="inputDefault">Children</label>
+                                        <input type="number" class="form-control" min="0" placeholder="" id="children">
+                                    </div>
+
+                                    <!--Smoker-->
+                                    <div class="form-group">
+                                        <label for="exampleSelect1">Smoker</label>
+                                        <select class="form-control" id="smoker">
+                                            <option>Yes</option>
+                                            <option>No</option>
+                                        </select>
+                                    </div>
+
+                                    <!--Region-->
+                                    <div class="form-group">
+                                        <label for="exampleSelect1">Regions</label>
+                                        <select class="form-control" id="region">
+                                            <option>Northwest</option>
+                                            <option>Northeast</option>
+                                            <option>Southwest</option>
+                                            <option>Southeast</option>
+                                        </select>
+                                    </div>
+
+
+                                    <button type="submit" id="sub" class="btn btn-success mt-3">Predict Premium</button>
+                                </fieldset>
+                            </form>
+
+                        </div>
+                    </div>
+                    <div id="alert-placeholder"></div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="card border-primary mb-3" style="max-width: auto;">
+                                <div class="card-header">Upload Dataset</div>
+                                <div class="card-body">
+                                    <fieldset>
+
+
+
+
+                                        <div class="form-group">
+                                            <div class="input-group mb-3">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                                    <label class="custom-file-label" for="inputGroupFile02">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <button class="input-group-text bttn btn-primary text-white"
+                                                        id="upload">Upload</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card border-primary mb-3" style="max-width: auto;">
+                                <div class="card-header"></div>
+                                <div class="card-body">
+                                    <h4 class="card-title">Your predicted health premium cost is</h4>
+                                    <h1 class="card-text dispaly-4 text-dark" id="output"></h1>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class=" row">
+                        <div class="col-md-12">
+                            <div class="card border-primary mb-3" style="max-width: auto;">
+                                <div class="card-header"></div>
+                                <div class="card-body">
+                                    <h3>About the application</h3>
+                                    <p class="card-text">
+                                        People’s health care cost prediction is nowadays a valuable tool to improve
+                                        accountability in health
+                                        care. Per year employers spend huge amount on health premiums for their
+                                        employees. One
+                                        important question these employers must always consider is if the coverage they
+                                        are getting is
+                                        worth what they are paying. The health insurance providers have their
+                                        proprietary actuarial
+                                        methods and complex models to determine these premiums, but they are hidden from
+                                        the public.
+
+                                        Rising health care costs are a major public health issue. Thus, accurately
+                                        predicting future costs and
+                                        understanding which factors contribute to increases in health care expenditures
+                                        are important.<br>
+                                        <b>Healsafe</b> is web app developed to calculate the Health care insurance of a
+                                        person based on various factors
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <!--<div class="card border-secondary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+                <h4 class="card-title">Secondary card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+            </div>
+        </div>  -->
+
+    </section>
+    <!--<iframe allow="microphone;" width="350" height="430"
+        src="https://console.dialogflow.com/api-client/demo/embedded/9807a9b2-cd98-4ac6-93ed-ac67cb1d1cf8">
+    </iframe> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+    <script src="{{ url_for('static', path='js/script.js') }}"></script>
+    <script type="text/javascript"
+    id="botcopy-embedder-d7lcfheammjct"
+    class="botcopy-embedder-d7lcfheammjct" 
+    data-botId="5fa8f970935348000851c428"
+>
+    var s = document.createElement('script'); 
+    s.type = 'text/javascript'; s.async = true; 
+    s.src = 'https://widget.botcopy.com/js/injection.js'; 
+    document.getElementById('botcopy-embedder-d7lcfheammjct').appendChild(s);
+</script>
+</body>
+
+</html>
